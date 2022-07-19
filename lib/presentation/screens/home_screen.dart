@@ -1,16 +1,37 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:who_win_million/business_logic/bloc/soundEffects.dart';
 
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final user;
 
   const HomeScreen({Key? key, this.user}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SoundEffects().setAndPlayOpeningAudio();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    SoundEffects().openingAudioDispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +47,20 @@ class HomeScreen extends StatelessWidget {
             children: [
               //width , height ,child,ontap
               LinearButton(
-                width: 200,
-                height: 35,
-                child: Text(
-                  'إبدأ لعبة جديدة',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: MyColors.black,
-                    fontWeight: FontWeight.bold,
+                  width: 200,
+                  height: 35,
+                  child: Text(
+                    'إبدأ لعبة جديدة',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                ontap: () => Navigator.pushNamed(context, questionsScreen),
-              ),
+                  ontap: () async {
+                    Navigator.pushNamed(context, questionsScreen);
+                  }),
               20.verticalSpace, // SizedBox(height: 20.h),
               LinearButton(
                 width: 200,

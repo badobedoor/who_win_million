@@ -1,4 +1,4 @@
-const baseUrl = '';
+const baseUrl = 'https://islamquestions.herokuapp.com/api/';
 
 const onboardingScreen = '/'; // '/onboarding';
 const logInScreen = '/logIn';
