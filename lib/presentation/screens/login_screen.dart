@@ -6,6 +6,8 @@ import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
 
+import '../../business_logic/cubit/sharedPreferences.dart';
+
 class LogInScreen extends StatelessWidget {
   const LogInScreen({Key? key}) : super(key: key);
 
@@ -70,7 +72,11 @@ class LogInScreen extends StatelessWidget {
               ),
               SizedBox(height: 58.h),
               InkWell(
-                onTap: () => Navigator.pushNamed(context, homeScreen),
+                onTap: () {
+                  NewSharedPreferences().setIsLoginScreenShowed(true);
+                  startscreen = 'next';
+                  Navigator.pushNamed(context, homeScreen);
+                },
                 child: Text(
                   'تخطى',
                   textAlign: TextAlign.right,

@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
 
+import '../../business_logic/cubit/sharedPreferences.dart';
+
 class OnboardigScreen extends StatelessWidget {
   const OnboardigScreen({Key? key}) : super(key: key);
 
@@ -36,7 +38,11 @@ class OnboardigScreen extends StatelessWidget {
               ),
               SizedBox(height: 98.h),
               InkWell(
-                onTap: () => Navigator.pushNamed(context, logInScreen),
+                onTap: () {
+                  NewSharedPreferences().setIsOnboardingScreenShowed(true);
+                  startscreen = 'next';
+                  Navigator.pushNamed(context, logInScreen);
+                },
                 child: Text(
                   'التالى',
                   textAlign: TextAlign.right,

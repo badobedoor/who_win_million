@@ -1,6 +1,25 @@
+import '../business_logic/cubit/sharedPreferences.dart';
+
 const baseUrl = 'https://islamquestions.herokuapp.com/api/';
 
-const onboardingScreen = '/'; // '/onboarding';
+Future<String> res() async {
+  bool isOnboardingScreenShowed =
+      await NewSharedPreferences().getIsOnboardingScreenShowed();
+  bool isLoginScreenShowed =
+      await NewSharedPreferences().getIsLoginScreenShowed();
+
+  var res = isOnboardingScreenShowed
+      ? isLoginScreenShowed
+          ? '/home'
+          : '/logIn'
+      : '/onboarding';
+  startscreen = res;
+  return res;
+}
+
+String startscreen = '/';
+
+const onboardingScreen = '/onboarding';
 const logInScreen = '/logIn';
 const homeScreen = '/home';
 const questionsScreen = '/questions';
