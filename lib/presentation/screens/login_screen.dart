@@ -1,12 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
+import 'package:toast/toast.dart';
 
-import '../../business_logic/cubit/sharedPreferences.dart';
+import '../../business_logic/cubit/registration_cubit.dart';
+import '../../business_logic/functions.dart/login_screen_functions.dart';
+import '../../business_logic/help/sharedPreferences.dart';
+import '../../data/web_services/registration_web_services.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -14,7 +19,34 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ContainerWithLogoBackgroundImage(
+      body: BlocListener<RegistrationCubit, RegistrationState>(
+        listener: (context, state) {
+          if (state is NewPlayerWithAccountAdded) {
+            Navigator.pushNamed(context, homeScreen);
+          } else if (state is AddNewPlayerWithAccountErrorCase) {
+            Toast.show(
+              state.errorMessage,
+              duration: 3,
+              gravity: Toast.bottom,
+            );
+          } else if (state is NewPlayerAdded) {
+            Navigator.pushNamed(context, homeScreen);
+          } else if (state is AddNewPlayerErrorCase) {
+            Toast.show(
+              state.errorMessage,
+              duration: 3,
+              gravity: Toast.bottom,
+            );
+          }
+        },
+        child: _body(context),
+      ),
+    );
+  }
+
+  ContainerWithLogoBackgroundImage _body(BuildContext context) {
+    ToastContext().init(context);
+    return ContainerWithLogoBackgroundImage(
       child: Padding(
         padding: EdgeInsets.only(right: 47.w, top: 110.h),
         child: Container(
@@ -33,22 +65,30 @@ class LogInScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28.h),
-              Container(
-                width: 180.w,
-                height: 35.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-                child: Text(
-                  'Google',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: MyColors.white,
-                    fontWeight: FontWeight.bold,
+              InkWell(
+                onTap: () => LoginScreenFunctions.gogleSigIn(context),
+                child: Container(
+                  width: 180.w,
+                  height: 35.h,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6.r),
                   ),
+                  child: BlocBuilder<RegistrationCubit, RegistrationState>(
+                      builder: (context, state) {
+                    if (state is AddingNewPlayerWithAccount)
+                      return Center(child: CircularProgressIndicator());
+                    return Text(
+                      'Google',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: MyColors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }),
                 ),
               ),
               SizedBox(height: 20.h),
@@ -72,28 +112,33 @@ class LogInScreen extends StatelessWidget {
               ),
               SizedBox(height: 58.h),
               InkWell(
-                onTap: () {
-                  NewSharedPreferences().setIsLoginScreenShowed(true);
-                  startscreen = 'next';
-                  Navigator.pushNamed(context, homeScreen);
-                },
-                child: Text(
-                  'تخطى',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    color: MyColors.yellow,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
+                onTap: () =>
+                    LoginScreenFunctions.createAnonymousNewPlayer(context),
+                child: BlocBuilder<RegistrationCubit, RegistrationState>(
+                    builder: (context, state) {
+                  if (state is AddingNewPlayer)
+                    return CircularProgressIndicator();
+                  return Text(
+                    'تخطى',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color: MyColors.yellow,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  );
+                }),
               ),
             ],
           ),
         ),
       ),
-    ));
+    );
   }
 }
+
+// ScaffoldMessenger.of(context)
+//     .showSnackBar(SnackBar(content: Text('Sign in Faild')));
 
 // import 'package:flutter/material.dart';
 // // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';

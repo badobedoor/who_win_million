@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.who_win_million">
+    package="com.softwarechasers.who_win_million">
    <application
-        android:label="who_win_million"
+        android:label="من سيربح المليون (النسخه الدينية)"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:who_win_million/business_logic/cubit/soundEffects.dart';
+import 'package:who_win_million/business_logic/help/soundEffects.dart';
 
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';

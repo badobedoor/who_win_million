@@ -1,25 +1,25 @@
-import '../business_logic/cubit/sharedPreferences.dart';
+import '../business_logic/help/sharedPreferences.dart';
 
 const baseUrl = 'https://islamquestions.herokuapp.com/api/';
 
-Future<String> res() async {
-  bool isOnboardingScreenShowed =
-      await NewSharedPreferences().getIsOnboardingScreenShowed();
-  bool isLoginScreenShowed =
-      await NewSharedPreferences().getIsLoginScreenShowed();
+// Future<String> res() async {
+//   bool isOnboardingScreenShowed =
+//       await NewSharedPreferences().getIsOnboardingScreenShowed();
+//   bool isLoginScreenShowed =
+//       await NewSharedPreferences().getIsLoginScreenShowed();
 
-  var res = isOnboardingScreenShowed
-      ? isLoginScreenShowed
-          ? '/home'
-          : '/logIn'
-      : '/onboarding';
-  startscreen = res;
-  return res;
-}
+//   var res = isOnboardingScreenShowed
+//       ? isLoginScreenShowed
+//           ? '/home'
+//           : '/logIn'
+//       : '/onboarding';
+//   startscreen = res;
+//   return res;
+// }
 
-String startscreen = '/';
+// String startscreen = '/';
 
-const onboardingScreen = '/onboarding';
+const onboardingScreen = '/';
 const logInScreen = '/logIn';
 const homeScreen = '/home';
 const questionsScreen = '/questions';

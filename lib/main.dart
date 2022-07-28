@@ -6,7 +6,7 @@ import 'package:who_win_million/constants/strings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  res().then((value) => startscreen = value);
+  // res().then((value) => startscreen = value);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom]);
 
