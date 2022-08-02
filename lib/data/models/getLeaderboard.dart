@@ -1,52 +1,34 @@
 // ignore_for_file: unnecessary_this, prefer_collection_literals
 
-class GetLeaderboard {
+class Leaderboard {
   bool? success;
-  List<Data>? data;
+  List<LeaderboardData>? data;
   String? message;
 
-  GetLeaderboard({this.success, this.data, this.message});
+  Leaderboard({this.success, this.data, this.message});
 
-  GetLeaderboard.fromJson(Map<String, dynamic> json) {
+  Leaderboard.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <LeaderboardData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(LeaderboardData.fromJson(v));
       });
     }
     message = json['message'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['success'] = this.success;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    data['message'] = this.message;
-    return data;
-  }
 }
 
-class Data {
+class LeaderboardData {
   int? id;
   String? playerName;
   int? playerScore;
 
-  Data({this.id, this.playerName, this.playerScore});
+  LeaderboardData({this.id, this.playerName, this.playerScore});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  LeaderboardData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     playerName = json['player_name'];
     playerScore = json['player_score'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['player_name'] = this.playerName;
-    data['player_score'] = this.playerScore;
-    return data;
   }
 }

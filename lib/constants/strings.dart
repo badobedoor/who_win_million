@@ -9,8 +9,8 @@ const baseUrl = 'https://islamquestions.herokuapp.com/api/';
 //       await NewSharedPreferences().getIsLoginScreenShowed();
 
 //   var res = isOnboardingScreenShowed
-//       ? isLoginScreenShowed
-//           ? '/home'
+//        isLoginScreenShowed
+//            '/home'
 //           : '/logIn'
 //       : '/onboarding';
 //   startscreen = res;
@@ -19,7 +19,8 @@ const baseUrl = 'https://islamquestions.herokuapp.com/api/';
 
 // String startscreen = '/';
 
-const onboardingScreen = '/';
+const splashScreen = '/';
+const onboardingScreen = '/onboarding';
 const logInScreen = '/logIn';
 const homeScreen = '/home';
 const questionsScreen = '/questions';

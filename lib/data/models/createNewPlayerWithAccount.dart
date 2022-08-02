@@ -9,8 +9,18 @@ class NewPlayerWithAccount {
 
   NewPlayerWithAccount.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    data['message'] = this.message;
+    return data;
   }
 }
 
@@ -25,8 +35,18 @@ class Data {
     playerName = json['player_name'];
     id = json['id'];
     playerAccount = json['player_account'] != null
-        ? PlayerAccount.fromJson(json['player_account'])
+        ? new PlayerAccount.fromJson(json['player_account'])
         : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['player_name'] = this.playerName;
+    data['id'] = this.id;
+    if (this.playerAccount != null) {
+      data['player_account'] = this.playerAccount!.toJson();
+    }
+    return data;
   }
 }
 
@@ -41,5 +61,13 @@ class PlayerAccount {
     playerEmail = json['player_email'];
     emailType = json['email_type'];
     playerId = json['player_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['player_email'] = this.playerEmail;
+    data['email_type'] = this.emailType;
+    data['player_id'] = this.playerId;
+    return data;
   }
 }

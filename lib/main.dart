@@ -31,6 +31,7 @@ class WinMillionApp extends StatelessWidget {
       // splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          // home: ,
           theme: ThemeData(fontFamily: 'Almarai'),
           debugShowCheckedModeBanner: false,
           onGenerateRoute: appRouter.genarateRoute,

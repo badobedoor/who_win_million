@@ -10,8 +10,27 @@ import 'package:who_win_million/presentation/widgets/blackScreenWithOpacity.dart
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
 
-class SettingScreen extends StatelessWidget {
+import '../../business_logic/help/sharedPreferences.dart';
+import '../../data/models/player.dart';
+import '../widgets/loginSettingsContainer.dart';
+
+class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+  // note: updated as context.ancestorStateOfType is now deprecated
+  static _SettingScreenState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_SettingScreenState>();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  bool isAccountSettingShow = false;
+  bool isloginSettingShow = false;
+  bool isSoundOn = true; //هنا الاصول اجبيب البينات من الداتا المسجله على الجهاز
+  var id = PlayerAccount.playerId;
+  var playerEmail = PlayerAccount.playerEmail;
+  set settingShow(bool value) => setState(() => isAccountSettingShow = value);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +58,7 @@ class SettingScreen extends StatelessWidget {
                     width: 200,
                     height: 35,
                     child: Text(
-                      'تسجيل الدخول', //'إعدادات الحساب',
+                      playerEmail != null ? 'إعدادات الحساب' : 'تسجيل الدخول',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16.sp,
@@ -47,26 +66,37 @@ class SettingScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    ontap: () => Navigator.pushNamed(context, questionsScreen),
+                    ontap: () {
+                      setState(() {
+                        playerEmail != null
+                            ? isAccountSettingShow = true
+                            : isloginSettingShow = true;
+                      });
+                    },
                   ),
                   19.verticalSpace, // SizedBox(height: 20.h),
                   LinearButton(
                     width: 200,
                     height: 35,
-                    ontap: () =>
-                        Navigator.pushNamed(context, leaderBoardScreen),
+                    ontap: () async {
+                      setState(() {
+                        isSoundOn = !isSoundOn;
+                      });
+                      await NewSharedPreferences().setIsSoundOn(isSoundOn);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          // FontAwesomeIcons.volumeHigh,
-                          FontAwesomeIcons.volumeXmark,
+                          isSoundOn
+                              ? FontAwesomeIcons.volumeXmark
+                              : FontAwesomeIcons.volumeHigh,
                           color: MyColors.black,
                           size: 14.sp,
                         ),
                         15.horizontalSpace,
                         Text(
-                          'تشغيل الصوت',
+                          isSoundOn ? 'ايقاف الصوت' : 'تشغيل الصوت',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16.sp,
@@ -90,11 +120,12 @@ class SettingScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      ontap: () {}),
+                      ontap: () {
+                        //تقيم التطبيق
+                      }),
                   40.verticalSpace,
                   InkWell(
                     onTap: () => Navigator.pop(context),
-                    // Navigator.pushNamed(context, homeScreen),
                     child: Text(
                       'رجوع',
                       textAlign: TextAlign.right,
@@ -110,13 +141,24 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
         ),
-        //  خللفية شفافة سوداء
-        //   BlackScreenWithOpacity(),
+        // خللفية شفافة سوداء
+        //   bool isAccountSettingShow = false;
+        // bool isloginSettingShow = false;
+        if (isAccountSettingShow == true || isloginSettingShow == true)
+          InkWell(
+              onTap: () {
+                setState(() {
+                  isAccountSettingShow = false;
+                  isloginSettingShow = false;
+                });
+              },
+              child: BlackScreenWithOpacity()),
 
-        //إعدادات الحساب
+        // إعدادات الحساب
         //account settings Container
-
-        // AccountSettingsContainer(),
+        if (isAccountSettingShow == true) AccountSettingsContainer(),
+        //login settings Container
+        if (isloginSettingShow == true) const LoginSettingsContainer(),
       ]),
     );
   }

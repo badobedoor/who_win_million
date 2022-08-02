@@ -39,7 +39,7 @@ class OnboardigScreen extends StatelessWidget {
               SizedBox(height: 98.h),
               InkWell(
                 onTap: () {
-                  // NewSharedPreferences().setIsOnboardingScreenShowed(true);
+                  NewSharedPreferences().setIsOnboardingScreenShowed(true);
                   // startscreen = 'next';
                   Navigator.pushNamed(context, logInScreen);
                 },

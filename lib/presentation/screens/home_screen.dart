@@ -1,14 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:who_win_million/business_logic/help/soundEffects.dart';
-
+import '../../business_logic/help/sharedPreferences.dart';
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
+import '../../business_logic/help/sharedPreferences.dart';
 
 class HomeScreen extends StatefulWidget {
   final user;
@@ -23,7 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    SoundEffects().setAndPlayOpeningAudio();
+    if (NewSharedPreferences.isSoundOn == true) {
+      SoundEffects().setAndPlayOpeningAudio();
+    }
   }
 
   @override
@@ -63,19 +68,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
               20.verticalSpace, // SizedBox(height: 20.h),
               LinearButton(
-                width: 200,
-                height: 35,
-                child: Text(
-                  'ترتيب المتسابقين',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: MyColors.black,
-                    fontWeight: FontWeight.bold,
+                  width: 200,
+                  height: 35,
+                  child: Text(
+                    'ترتيب المتسابقين',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                ontap: () => Navigator.pushNamed(context, leaderBoardScreen),
-              ),
+                  ontap: () async {
+                    Navigator.pushNamed(context, leaderBoardScreen);
+                  }),
               20.verticalSpace, // SizedBox(height: 20.h),
               LinearButton(
                 width: 200,
@@ -89,12 +95,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                ontap: () => Navigator.pushNamed(context, settingScreen),
+                ontap: () async {
+                  await NewSharedPreferences().getPlayerData();
+                  Navigator.pushNamed(context, settingScreen);
+                },
               ),
               SizedBox(height: 60.h),
               InkWell(
-                //هل هنا هيكون تسجيل خروج ام الخروج من اللعبه وتصحيح العبارة اذا كانت تسجيل خروج
-                onTap: () => Navigator.pushNamed(context, logInScreen),
+                onTap: () =>
+                    SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
                 child: Text(
                   'خروج',
                   textAlign: TextAlign.right,

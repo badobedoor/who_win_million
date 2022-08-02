@@ -1,42 +1,29 @@
 // ignore_for_file: unnecessary_this, prefer_collection_literals
 
-class GetPlayerScore {
+class PlayerScore {
   bool? success;
   Data? data;
   String? message;
 
-  GetPlayerScore({this.success, this.data, this.message});
+  PlayerScore({this.success, this.data, this.message});
 
-  GetPlayerScore.fromJson(Map<String, dynamic> json) {
+  PlayerScore.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    // ignore: unnecessary this
-    data['success'] = this.success;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    data['message'] = this.message;
-    return data;
   }
 }
 
 class Data {
+  String? playerName;
   int? playerScore;
+  int? playerRank;
 
-  Data({this.playerScore});
+  Data({this.playerName, this.playerScore, this.playerRank});
 
   Data.fromJson(Map<String, dynamic> json) {
+    playerName = json['player_name'];
     playerScore = json['player_score'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['player_score'] = this.playerScore;
-    return data;
+    playerRank = json['player_rank'];
   }
 }

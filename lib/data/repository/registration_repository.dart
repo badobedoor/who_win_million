@@ -1,14 +1,16 @@
+import 'package:who_win_million/business_logic/cubit/registration_cubit.dart';
+
+import '../models/loginPlayerAccount_by_ID.dart';
 import '../models/newPlayer.dart';
 import '../models/createNewPlayerWithAccount.dart';
-import '../models/createPlayerAccount_by_ID.dart';
+
 import '../models/getPlayerNameByID.dart';
-import '../models/isRegistered.dart';
+
 import '../models/updatePlayerName.dart';
 import '../web_services/registration_web_services.dart';
 
 class RegistrationRepository {
   RegistrationWebServices registrationWebServices;
-
   RegistrationRepository(this.registrationWebServices);
 
   //get
@@ -43,41 +45,47 @@ class RegistrationRepository {
     return NewPlayerWithAccount.fromJson(playerdata);
   }
 
-//get
-  Future<List<dynamic>> getPlayerNameByID({required var id}) async {
-    final playerNames = await registrationWebServices.getPlayerNameByID(id: id);
-    return playerNames
-        .map((playerName) => GetPlayerNameByID.fromJson(playerName))
-        .toList();
+  //get
+  Future<GetPlayerNameByID> getPlayerNameByID({required int id}) async {
+    // Map<String, dynamic>
+    final player = await registrationWebServices.getPlayerNameByID(id: id);
+    if (player != {}) {
+      var res = GetPlayerNameByID.fromJson(player);
+      return res;
+    } else {
+      return GetPlayerNameByID();
+    }
   }
 
 //post
-  Future<List<dynamic>> updatePlayerName(
+  Future<UpdatePlayerNameData> updatePlayerName(
       {required var id, required String playerName}) async {
-    final playername = await registrationWebServices.updatePlayerName(
+    final player = await registrationWebServices.updatePlayerName(
         id: id, playerName: playerName);
-    return playername
-        .map((player) => UpdatePlayerName.fromJson(player))
-        .toList();
+    if (player != {}) {
+      var res = UpdatePlayerNameData.fromJson(player);
+      return res;
+    } else {
+      return UpdatePlayerNameData();
+    }
   }
 
-//get
-  Future<List<dynamic>> isRegistered({required var id}) async {
-    final isRegistered = await registrationWebServices.isRegistered(id: id);
-    return isRegistered
-        .map((registered) => IsRegistered.fromJson(registered))
-        .toList();
-  }
+// //get
+//   Future<List<dynamic>> isRegistered({required var id}) async {
+//     final isRegistered = await registrationWebServices.isRegistered(id: id);
+//     return isRegistered
+//         .map((registered) => IsRegistered.fromJson(registered))
+//         .toList();
+//   }
 
 //post
-  Future<List<dynamic>> createPlayerAccount(
+  Future<LoginPlayerAccountByID> loginPlayerAccountByID(
       {required var id,
       required String email,
       required String emailType}) async {
-    final playerData = await registrationWebServices.createPlayerAccount(
+    final playerData = await registrationWebServices.loginPlayerAccountByID(
         id: id, email: email, emailType: emailType);
-    return playerData
-        .map((player) => CreatePlayerAccount_by_ID.fromJson(player))
-        .toList();
+    if (playerData.isEmpty) return LoginPlayerAccountByID();
+    return LoginPlayerAccountByID.fromJson(playerData);
   }
 }

@@ -1,15 +1,43 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:who_win_million/business_logic/cubit/leaderbord_cubit.dart';
+import 'package:who_win_million/business_logic/cubit/player_cubit.dart';
+
+import 'package:who_win_million/business_logic/cubit/registration_cubit.dart';
 
 import 'package:who_win_million/constants/my_colors.dart';
+
 import 'package:who_win_million/presentation/widgets/container_with_background_image.dart';
 import 'package:who_win_million/presentation/widgets/leaderBordListViewItem.dart';
 
+import '../../data/models/player.dart';
 import '../widgets/containerWithLinearGradient.dart';
+import '../widgets/leader_Board_UI_Data.dart';
 
-class LeaderBordScreen extends StatelessWidget {
+class LeaderBordScreen extends StatefulWidget {
   const LeaderBordScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LeaderBordScreen> createState() => _LeaderBordScreenState();
+}
+
+class _LeaderBordScreenState extends State<LeaderBordScreen> {
+  // int? playerScore;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<LeaderboardCubit>(context).getLeaderboard();
+
+    var id = PlayerAccount.playerId!;
+    BlocProvider.of<PlayerCubit>(context).getPlayerScoreByID(id: id);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   getplayerScoreData(id);
+    // });
+    // BlocProvider.of<RegistrationCubit>(context).getPlayerNameByID(id: id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +92,30 @@ class LeaderBordScreen extends StatelessWidget {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //LeaderBordListViewItem
-                            ListViewItem(),
-                            Container(
-                                color: MyColors.green,
-                                child:
-                                    //LeaderBordListViewItem
-                                    ListViewItem(
-                                  color: MyColors.darkGreen,
-                                )),
+                            const LeaderBoardUIData(),
+                            BlocBuilder<PlayerCubit, PlayerState>(
+                                builder: (context, state) {
+                              if (state is PlayerScoreLoaded) {
+                                final playerScoreData = state.playerScoreData;
+
+                                return Container(
+                                    //عاوز اجيب الرانك بتاع اللاعب
+                                    color: MyColors.green,
+                                    child: ListViewItem(
+                                      playerName:
+                                          playerScoreData.data!.playerName ??
+                                              'ans',
+                                      playerScore:
+                                          playerScoreData.data!.playerScore ??
+                                              8,
+                                      playerRankingNumber:
+                                          playerScoreData.data!.playerRank ?? 0,
+                                      color: MyColors.darkGreen,
+                                    ));
+                              } else {
+                                return const Center(); //child: CircularProgressIndicator()
+                              }
+                            }),
                           ]),
                     ),
                   ],
@@ -102,4 +145,5 @@ class LeaderBordScreen extends StatelessWidget {
     );
   }
 }
+
 //LeaderBordListViewItem

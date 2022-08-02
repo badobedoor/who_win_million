@@ -22,6 +22,7 @@ class LogInScreen extends StatelessWidget {
       body: BlocListener<RegistrationCubit, RegistrationState>(
         listener: (context, state) {
           if (state is NewPlayerWithAccountAdded) {
+            NewSharedPreferences().setIsLoginScreenShowed(true);
             Navigator.pushNamed(context, homeScreen);
           } else if (state is AddNewPlayerWithAccountErrorCase) {
             Toast.show(
@@ -30,6 +31,7 @@ class LogInScreen extends StatelessWidget {
               gravity: Toast.bottom,
             );
           } else if (state is NewPlayerAdded) {
+            NewSharedPreferences().setIsLoginScreenShowed(true);
             Navigator.pushNamed(context, homeScreen);
           } else if (state is AddNewPlayerErrorCase) {
             Toast.show(
@@ -44,6 +46,7 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
+// body
   ContainerWithLogoBackgroundImage _body(BuildContext context) {
     ToastContext().init(context);
     return ContainerWithLogoBackgroundImage(
@@ -65,73 +68,86 @@ class LogInScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28.h),
-              InkWell(
-                onTap: () => LoginScreenFunctions.gogleSigIn(context),
-                child: Container(
-                  width: 180.w,
-                  height: 35.h,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6.r),
-                  ),
-                  child: BlocBuilder<RegistrationCubit, RegistrationState>(
-                      builder: (context, state) {
-                    if (state is AddingNewPlayerWithAccount)
-                      return Center(child: CircularProgressIndicator());
-                    return Text(
-                      'Google',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: MyColors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }),
-                ),
-              ),
+              googleButton(context),
               SizedBox(height: 20.h),
-              Container(
-                width: 180.w,
-                height: 35.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-                child: Text(
-                  'Facebook',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: MyColors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              facebookButton(),
               SizedBox(height: 58.h),
-              InkWell(
-                onTap: () =>
-                    LoginScreenFunctions.createAnonymousNewPlayer(context),
-                child: BlocBuilder<RegistrationCubit, RegistrationState>(
-                    builder: (context, state) {
-                  if (state is AddingNewPlayer)
-                    return CircularProgressIndicator();
-                  return Text(
-                    'تخطى',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: MyColors.yellow,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  );
-                }),
-              ),
+              skipButton(context),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+//skip button and create new player Function
+  InkWell skipButton(BuildContext context) {
+    return InkWell(
+      onTap: () => LoginScreenFunctions.createAnonymousNewPlayer(context),
+      child: BlocBuilder<RegistrationCubit, RegistrationState>(
+          builder: (context, state) {
+        if (state is AddingNewPlayer) return CircularProgressIndicator();
+        return Text(
+          'تخطى',
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            fontSize: 18.sp,
+            color: MyColors.yellow,
+            fontWeight: FontWeight.w900,
+          ),
+        );
+      }),
+    );
+  }
+
+  //facebook Button UI
+  Container facebookButton() {
+    return Container(
+      width: 180.w,
+      height: 35.h,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      child: Text(
+        'Facebook',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 16.sp,
+          color: MyColors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+//google Button UI
+  InkWell googleButton(BuildContext context) {
+    return InkWell(
+      onTap: () => LoginScreenFunctions.gogleSigIn(context),
+      child: Container(
+        width: 180.w,
+        height: 35.h,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(6.r),
+        ),
+        child: BlocBuilder<RegistrationCubit, RegistrationState>(
+            builder: (context, state) {
+          if (state is AddingNewPlayerWithAccount)
+            return Center(child: CircularProgressIndicator());
+          return Text(
+            'Google',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16.sp,
+              color: MyColors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          );
+        }),
       ),
     );
   }
