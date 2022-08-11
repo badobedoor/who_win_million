@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:who_win_million/business_logic/help/soundEffects.dart';
+import '../../business_logic/cubit/questions_cubit.dart';
 import '../../business_logic/help/sharedPreferences.dart';
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
@@ -26,16 +28,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<QuestionsCubit>(context).getRandomQuestion();
     if (NewSharedPreferences.isSoundOn == true) {
-      SoundEffects().setAndPlayOpeningAudio();
+      // SoundEffects().setAndPlayOpeningAudio();
     }
+    SoundEffects.setAndPlayOpeningAudio();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    SoundEffects().openingAudioDispose();
+    SoundEffects.openingAudioDispose();
   }
 
   @override
@@ -64,6 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ontap: () async {
+                    if (SoundEffects.openingAudio.playing)
+                      SoundEffects.openingAudio.stop();
+
                     Navigator.pushNamed(context, questionsScreen);
                   }),
               20.verticalSpace, // SizedBox(height: 20.h),
@@ -80,6 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ontap: () async {
+                    if (SoundEffects.openingAudio.playing)
+                      SoundEffects.openingAudio.stop();
+
                     Navigator.pushNamed(context, leaderBoardScreen);
                   }),
               20.verticalSpace, // SizedBox(height: 20.h),
@@ -96,6 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 ontap: () async {
+                  if (SoundEffects.openingAudio.playing)
+                    SoundEffects.openingAudio.stop();
                   await NewSharedPreferences().getPlayerData();
                   Navigator.pushNamed(context, settingScreen);
                 },

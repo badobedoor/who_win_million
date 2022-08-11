@@ -5,189 +5,194 @@ class SoundEffects {
   bool isSoundOn = true;
 
   //المؤثرات الصوتية الخاصه ببدايه اللعبه
-  final openingAudio = AudioPlayer();
-  final startgameAudio = AudioPlayer();
+  static final openingAudio = AudioPlayer();
+  static final startgameAudio = AudioPlayer();
   //المؤثرات الصوتية الخاصه بوسائل المساعدة
-  final deleteTwoAnswerAudio = AudioPlayer();
-  final askTheAudienceAudio = AudioPlayer();
-  final phoneFriendClockAudio = AudioPlayer();
-  final outOfTimeAudio = AudioPlayer();
+  static final deleteTwoAnswerAudio = AudioPlayer();
+  static final askTheAudienceAudio = AudioPlayer();
+  static final phoneFriendClockAudio = AudioPlayer();
+  static final outOfTimeAudio = AudioPlayer();
   //المؤثرات الصوتية الخاصه بالايجابه صح وخطا
-  final finalAnswerAudio = AudioPlayer();
-  final wrongAnswerAudio = AudioPlayer();
-  final correctAnswerAudio = AudioPlayer();
+  static final finalAnswerAudio = AudioPlayer();
+  static final wrongAnswerAudio = AudioPlayer();
+  static final correctAnswerAudio = AudioPlayer();
   //المؤثرات الصوتية الخاصه بالاسئلة المهمه
-  final millionFinalAnswerAudio = AudioPlayer();
-  final millionLoseAudio = AudioPlayer();
-  final millionWinAudio = AudioPlayer();
+  static final millionFinalAnswerAudio = AudioPlayer();
+  static final millionLoseAudio = AudioPlayer();
+  static final millionWinAudio = AudioPlayer();
   //المؤثرات الصوتية الخاصه بموقت السوال
-  final questionsEseyAudio = AudioPlayer();
-  final questionHardAudio = AudioPlayer();
-  final questionsVeryHardAudio = AudioPlayer();
+  static final questionsEseyAudio = AudioPlayer();
+  static final questionHardAudio = AudioPlayer();
+  static final questionsVeryHardAudio = AudioPlayer();
 
   //الصوت فى بدايه اللعبه
-  Future setAndPlayOpeningAudio() async {
+  static Future setAndPlayOpeningAudio() async {
     String filePath = "assets/sounds/opening.mp3";
     await openingAudio.setAsset(filePath);
     await openingAudio.play();
   }
 
   //بداية جيم جديد
-  Future setAndPlaystartgameAudio() async {
+  static Future setAndPlaystartgameAudio() async {
     String filePath = "assets/sounds/startgame.mp3";
     await openingAudio.setAsset(filePath);
     await openingAudio.play();
   }
 
   //حذف اجابتين
-  Future setAndPlaydeleteTwoAnswerAudio() async {
+  static Future setAndPlaydeleteTwoAnswerAudio() async {
     String filePath = "assets/sounds/deleteTwoAnswer.mp3";
     await deleteTwoAnswerAudio.setAsset(filePath);
+
     await deleteTwoAnswerAudio.play();
   }
 
   // سؤال الجمهور
-  Future setAndPlayaskTheAudienceAudio() async {
+  static Future setAndPlayaskTheAudienceAudio() async {
     String filePath = "assets/sounds/AskTheAudience.mp3";
     await askTheAudienceAudio.setAsset(filePath);
     await askTheAudienceAudio.play();
   }
 
   // الاتصال بصديق
-  Future setAndPlayphoneFriendClockAudio() async {
+  static Future setAndPlayphoneFriendClockAudio() async {
     String filePath = "assets/sounds/PhoneFriendClock.mp3";
     await phoneFriendClockAudio.setAsset(filePath);
     await phoneFriendClockAudio.play();
   }
 
   // الوقت انتهى
-  Future setAndPlayOutOfTimeAudio() async {
+  static Future setAndPlayOutOfTimeAudio() async {
     String filePath = "assets/sounds/OutOfTime.mp3";
     await outOfTimeAudio.setAsset(filePath);
     await outOfTimeAudio.play();
   }
 
   // الاجابة الاخير ؟
-  Future setAndPlayFinalAnswerAudio() async {
+  static Future setAndPlayFinalAnswerAudio() async {
     String filePath = "assets/sounds/finalAnswer.mp3";
     await finalAnswerAudio.setAsset(filePath);
     await finalAnswerAudio.play();
   }
 
   // الاجابة خطا
-  Future setAndPlaywrongAnswerAudio() async {
+  static Future setAndPlaywrongAnswerAudio() async {
     String filePath = "assets/sounds/WrongAnswer.mp3";
     await wrongAnswerAudio.setAsset(filePath);
     await wrongAnswerAudio.play();
   }
 
   // الاجابة صح
-  Future setAndPlayCorrectAnswerAudio() async {
+  static Future setAndPlayCorrectAnswerAudio() async {
     String filePath = "assets/sounds/CorrectAnswer.mp3";
     await correctAnswerAudio.setAsset(filePath);
     await correctAnswerAudio.play();
   }
 
   // الاساءله الصعبه الاجابة الاخيرة
-  Future setAndPlayMillionFinalAnswerAudio() async {
+  static Future setAndPlayMillionFinalAnswerAudio() async {
     String filePath = "assets/sounds/MILLIONFinalAnswer.mp3";
     await millionFinalAnswerAudio.setAsset(filePath);
     await millionFinalAnswerAudio.play();
   }
 
   // الاسئله الصعبه الاجابه خطا
-  Future setAndPlayMillionLoseAudio() async {
+  static Future setAndPlayMillionLoseAudio() async {
     String filePath = "assets/sounds/MILLIONLOSE.mp3";
     await millionLoseAudio.setAsset(filePath);
     await millionLoseAudio.play();
   }
 
   // الاسئله الصعبه الاجابه صح
-  Future setAndPlayMillionWinAudio() async {
+  static Future setAndPlayMillionWinAudio() async {
     String filePath = "assets/sounds/MILLIONWIN.mp3";
     await millionWinAudio.setAsset(filePath);
     await millionWinAudio.play();
   }
 
   // صوت مؤقت الوقت فى الاسئله السهله
-  Future setAndPlayQuestionsEseyAudio() async {
+  static Future setAndPlayQuestionsEseyAudio() async {
     String filePath = "assets/sounds/QuestionsEsey.mp3";
     await questionsEseyAudio.setAsset(filePath);
+    await questionsEseyAudio.setLoopMode(LoopMode.all);
+    await questionsEseyAudio.setVolume(.5);
     await questionsEseyAudio.play();
   }
 
   // صوت مؤقت الوقت فى الاسئله متوسطه الصعوبه
-  Future setAndPlayQuestionHardAudio() async {
+  static Future setAndPlayQuestionHardAudio() async {
     String filePath = "assets/sounds/QuestionHard.mp3";
     await questionHardAudio.setAsset(filePath);
+    await questionHardAudio.setLoopMode(LoopMode.all);
     await questionHardAudio.play();
   }
 
   // صوت مؤقت الوقت فى الاسئله الصعبة
-  Future setAndPlayQuestionsVeryHardAudio() async {
+  static Future setAndPlayQuestionsVeryHardAudio() async {
     String filePath = "assets/sounds/QuestionsVeryHard.mp3";
     await questionsVeryHardAudio.setAsset(filePath);
+    await questionsVeryHardAudio.setLoopMode(LoopMode.all);
     await questionsVeryHardAudio.play();
   }
 
   // ************************
-  openingAudioDispose() {
+  static openingAudioDispose() {
     openingAudio.dispose();
   }
 
-  startgameAudioDispose() {
+  static startgameAudioDispose() {
     startgameAudio.dispose();
   }
 
-  deleteTwoAnswerAudioDispose() {
+  static deleteTwoAnswerAudioDispose() {
     deleteTwoAnswerAudio.dispose();
   }
 
-  askTheAudienceAudioDispose() {
+  static askTheAudienceAudioDispose() {
     askTheAudienceAudio.dispose();
   }
 
-  phoneFriendClockAudioDispose() {
+  static phoneFriendClockAudioDispose() {
     phoneFriendClockAudio.dispose();
   }
 
-  outOfTimeAudioDispose() {
+  static outOfTimeAudioDispose() {
     outOfTimeAudio.dispose();
   }
 
-  finalAnswerAudioDispose() {
+  static finalAnswerAudioDispose() {
     finalAnswerAudio.dispose();
   }
 
-  wrongAnswerAudioDispose() {
+  static wrongAnswerAudioDispose() {
     wrongAnswerAudio.dispose();
   }
 
-  correctAnswerAudioDispose() {
+  static correctAnswerAudioDispose() {
     correctAnswerAudio.dispose();
   }
 
-  millionFinalAnswerAudioDispose() {
+  static millionFinalAnswerAudioDispose() {
     millionFinalAnswerAudio.dispose();
   }
 
-  millionLoseAudioDispose() {
+  static millionLoseAudioDispose() {
     millionLoseAudio.dispose();
   }
 
-  millionWinAudioDispose() {
+  static millionWinAudioDispose() {
     millionWinAudio.dispose();
   }
 
-  questionsEseyAudioDispose() {
+  static questionsEseyAudioDispose() {
     questionsEseyAudio.dispose();
   }
 
-  questionHardAudioDispose() {
+  static questionHardAudioDispose() {
     questionHardAudio.dispose();
   }
 
-  questionsVeryHardAudioDispose() {
+  static questionsVeryHardAudioDispose() {
     questionsVeryHardAudio.dispose();
   }
 }

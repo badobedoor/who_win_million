@@ -81,10 +81,11 @@ class RegistrationRepository {
 //post
   Future<LoginPlayerAccountByID> loginPlayerAccountByID(
       {required var id,
+      required String name,
       required String email,
       required String emailType}) async {
     final playerData = await registrationWebServices.loginPlayerAccountByID(
-        id: id, email: email, emailType: emailType);
+        id: id, email: email, emailType: emailType, name: name);
     if (playerData.isEmpty) return LoginPlayerAccountByID();
     return LoginPlayerAccountByID.fromJson(playerData);
   }

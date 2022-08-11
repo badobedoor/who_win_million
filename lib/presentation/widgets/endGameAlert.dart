@@ -1,13 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/presentation/widgets/NormalText.dart';
 import 'package:who_win_million/presentation/widgets/containerWithLinearGradient.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class GameOver extends StatelessWidget {
-  const GameOver({
+import '../../business_logic/help/soundEffects.dart';
+import '../../constants/strings.dart';
+import '../screens/questions_screen.dart';
+
+class EndGameAlert extends StatelessWidget {
+  String scoreText;
+  EndGameAlert({
     Key? key,
+    required this.scoreText,
   }) : super(key: key);
 
   @override
@@ -24,14 +32,14 @@ class GameOver extends StatelessWidget {
           RichText(
             text: TextSpan(children: [
               TextSpan(
-                  text: 'لقد تحصلت على  ',
+                  text: 'تهانينا لقد حصلت على ',
                   style: TextStyle(
                     color: MyColors.white,
                     fontWeight: FontWeight.w900,
                     fontSize: 16.sp,
                   )),
               TextSpan(
-                  text: '1.000',
+                  text: scoreText,
                   style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 16.sp,
@@ -57,7 +65,14 @@ class GameOver extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LinearButton(
-                ontap: () {},
+                ontap: () async {
+                  QuestionsScreen.of(context)!.endGameAlertShow = false;
+                  Navigator.pop(context);
+                  SoundEffects.setAndPlaystartgameAudio().whenComplete(
+                      () => SoundEffects.setAndPlayQuestionsEseyAudio());
+
+                  Navigator.pushNamed(context, questionsScreen);
+                },
                 width: 103,
                 height: 40,
                 borderRadius: 10,
@@ -70,7 +85,12 @@ class GameOver extends StatelessWidget {
               ),
               10.horizontalSpace,
               LinearButton(
-                ontap: () {},
+                ontap: () {
+                  QuestionsScreen.of(context)!.endGameAlertShow = false;
+
+                  Navigator.pop(context);
+                  SoundEffects.setAndPlayOpeningAudio();
+                },
                 width: 103,
                 height: 40,
                 borderRadius: 10,

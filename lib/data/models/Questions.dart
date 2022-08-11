@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_collection_literals
 
-class Questions {
+class QuestionsData {
   bool? success;
   List<Data>? data;
   String? message;
 
-  Questions({this.success, this.data, this.message});
+  QuestionsData({this.success, this.data, this.message});
 
-  Questions.fromJson(Map<String, dynamic> json) {
+  QuestionsData.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
       data = <Data>[];
@@ -16,16 +16,6 @@ class Questions {
       });
     }
     message = json['message'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['success'] = success;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    data['message'] = message;
-    return data;
   }
 }
 
@@ -61,19 +51,5 @@ class Data {
     correctAnswer = json['correct_answer'];
     questionLevel = json['question_level'];
     userId = json['user_id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = id;
-    data['question_text'] = questionText;
-    data['answer1'] = answer1;
-    data['answer2'] = answer2;
-    data['answer3'] = answer3;
-    data['answer4'] = answer4;
-    data['correct_answer'] = correctAnswer;
-    data['question_level'] = questionLevel;
-    data['user_id'] = userId;
-    return data;
   }
 }

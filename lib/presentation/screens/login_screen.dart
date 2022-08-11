@@ -49,6 +49,7 @@ class LogInScreen extends StatelessWidget {
 // body
   ContainerWithLogoBackgroundImage _body(BuildContext context) {
     ToastContext().init(context);
+
     return ContainerWithLogoBackgroundImage(
       child: Padding(
         padding: EdgeInsets.only(right: 47.w, top: 110.h),

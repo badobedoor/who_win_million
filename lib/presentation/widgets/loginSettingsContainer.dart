@@ -123,7 +123,7 @@ class LoginSettingsContainer extends StatelessWidget {
         var res =
             BlocProvider.of<RegistrationCubit>(context).loginPlayerAccountByID(
           id: PlayerAccount.playerId!,
-          // name: user.displayName!,
+          name: user.displayName!,
           email: user.email,
           emailType: 'gmail',
         );

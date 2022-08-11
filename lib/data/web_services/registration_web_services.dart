@@ -96,10 +96,12 @@ class RegistrationWebServices {
 //post
   Future<Map<String, dynamic>> loginPlayerAccountByID(
       {required var id,
+      required String name,
       required String email,
       required String emailType}) async {
     try {
       var formData = FormData.fromMap({
+        "player_name": name,
         'player_email': email,
         'email_type': emailType,
       });

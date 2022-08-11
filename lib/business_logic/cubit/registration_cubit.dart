@@ -102,24 +102,26 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   }
 
   Future<bool> loginPlayerAccountByID({
-    // required String name,
+    required String name,
     required int id,
     required String email,
     required String emailType,
   }) async {
     emit(LoginPlayerAccountByIdLoding());
-    var newPlayerWithAccount = await registrationRepository
-        .loginPlayerAccountByID(id: id, email: email, emailType: emailType);
+    var newPlayerWithAccount =
+        await registrationRepository.loginPlayerAccountByID(
+            id: id, email: email, emailType: emailType, name: name);
     if (newPlayerWithAccount.message == null) {
       emit(LoginPlayerAccountByIdErrorCase(
           errorMessage: 'الرجاء التاكد من اتصالك بالانترنت واعادة المحاوله'));
       return false;
     } else if (newPlayerWithAccount.success = true) {
       await NewSharedPreferences().setPlayerData(
-        newPlayerEmail: newPlayerWithAccount.data!.playerEmail,
-        // newPlayerName: newPlayerWithAccount.data!.playerName,
-        newPlayerId: int.parse('${newPlayerWithAccount.data!.playerId}'),
-        newEmailType: newPlayerWithAccount.data!.emailType,
+        newPlayerEmail: newPlayerWithAccount.data!.playerAccount!.playerEmail,
+        newPlayerName: newPlayerWithAccount.data!.playerName,
+        newPlayerId:
+            int.parse('${newPlayerWithAccount.data!.playerAccount!.playerId}'),
+        newEmailType: newPlayerWithAccount.data!.playerAccount!.emailType,
       );
       emit(LoginPlayerAccountByIdLoded());
       return true;

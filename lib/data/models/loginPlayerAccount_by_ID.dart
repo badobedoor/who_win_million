@@ -15,13 +15,29 @@ class LoginPlayerAccountByID {
 }
 
 class Data {
+  String? playerName;
+  String? id;
+  PlayerAccount? playerAccount;
+
+  Data({this.playerName, this.id, this.playerAccount});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    playerName = json['player_name'];
+    id = json['id'];
+    playerAccount = json['player_account'] != null
+        ? new PlayerAccount.fromJson(json['player_account'])
+        : null;
+  }
+}
+
+class PlayerAccount {
   String? playerEmail;
   String? emailType;
   String? playerId;
 
-  Data({this.playerEmail, this.emailType, this.playerId});
+  PlayerAccount({this.playerEmail, this.emailType, this.playerId});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  PlayerAccount.fromJson(Map<String, dynamic> json) {
     playerEmail = json['player_email'];
     emailType = json['email_type'];
     playerId = json['player_id'];

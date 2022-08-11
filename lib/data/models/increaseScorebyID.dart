@@ -11,16 +11,6 @@ class IncreaseScorebyID {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
     message = json['message'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['success'] = this.success;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    data['message'] = this.message;
-    return data;
-  }
 }
 
 class Data {
@@ -30,11 +20,5 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     playerScore = json['player_score'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['player_score'] = this.playerScore;
-    return data;
   }
 }
