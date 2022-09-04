@@ -159,94 +159,203 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     // var allScore = allScoreloca
     //     ? Provider.of<VariablesProvider>(context, listen: true).allScore
     //     : allScorelocal;
-    // Widget buildNoInternetWidget() {
-    //   return Container(
-    //     // 640×360 px
-    //     height: 360.h,
-    //     width: 640.w,
-    //     decoration: const BoxDecoration(
-    //       image: DecorationImage(
-    //           image: AssetImage("assets/images/noConnection.png"),
-    //           fit: BoxFit.fill),
-    //     ),
-    //   );
-    // }
+    Widget buildNoInternetWidget() {
+      return Container(
+        // 640×360 px
+        height: 360.h,
+        width: 640.w,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/noConnection.png"),
+              fit: BoxFit.fill),
+        ),
+      );
+    }
 
     return Scaffold(
-      body: Stack(
-        children: [
-          ContainerWithBackgroundImage(
-            child: Row(
-              children: [
-                // Score Center Container
-                ScoreCenterContainer(allScore: allScore),
+      body: OfflineBuilder(
+        connectivityBuilder: (
+          BuildContext context,
+          ConnectivityResult connectivity,
+          Widget child,
+        ) {
+          final bool connected = connectivity != ConnectivityResult.none;
+          if (SoundEffects.questionsEseyAudio.playing && connected != true) {
+            SoundEffects.questionsEseyAudio.stop();
+          } else {
+            SoundEffects.questionsEseyAudio.play();
+          }
+          return connected
+              ? Stack(
+                  children: [
+                    ContainerWithBackgroundImage(
+                      child: Row(
+                        children: [
+                          // Score Center Container
+                          ScoreCenterContainer(allScore: allScore),
 
-                Padding(
-                  padding: EdgeInsets.only(right: 34.w, left: 40.w, top: 28.h),
-                  child: Column(
-                    children: [
-                      //Help Center منطقه وسائل المساعدة
-                      HelpCenterContainer(
-                        allScore: allScore,
-                        function: changeValue,
-                        // stopWatchTimer: stopWatchTimer
+                          Padding(
+                            padding: EdgeInsets.only(
+                                right: 34.w, left: 40.w, top: 28.h),
+                            child: Column(
+                              children: [
+                                //Help Center منطقه وسائل المساعدة
+                                HelpCenterContainer(
+                                  allScore: allScore,
+                                  function: changeValue,
+                                  // stopWatchTimer: stopWatchTimer
+                                ),
+                                92.verticalSpace,
+                                //Question Centerمنطقه الاسائله واجابتها
+                                QuestionCenterContainer(
+                                  allScore: allScore,
+                                  function: changeValue,
+                                  // stopWatchTimer: stopWatchTimer
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      92.verticalSpace,
-                      //Question Centerمنطقه الاسائله واجابتها
-                      QuestionCenterContainer(
-                        allScore: allScore,
-                        function: changeValue,
-                        // stopWatchTimer: stopWatchTimer
-                      ),
-                    ],
-                  ),
+                    ),
+                    // خللفية شفافة سوداء
+
+                    if (endGameAlertShow == true ||
+                        quitGameAlertShow == true ||
+                        fristquestionAlertShow == true ||
+                        usingTheCrowdContainerShow == true ||
+                        callFriendContainerShow == true)
+                      const BlackScreenWithOpacity(),
+
+                    //Using the crowd  وسيلة مساعده الاستعانه بالجمهور
+                    if (usingTheCrowdContainerShow == true)
+                      PlayUsingTheCrowdAnimation(),
+
+                    // call a friend وسيلة مساعده الاتصال بصديق
+                    if (callFriendContainerShow == true) const CallFriend(),
+
+                    //Quit the game الانسحاب
+                    if (quitGameAlertShow == true) const QuitTheGame(),
+
+                    // game over  انتهت اللعبه
+                    if (endGameAlertShow == true) const EndGameAlert(),
+                    //اظهار رساله ان لا يمكن استخدام وسائل المساعدة فى السوال الاول
+                    if (fristquestionAlertShow == true)
+                      const FristquestionAlert(),
+                  ],
                 )
-              ],
+              : buildNoInternetWidget();
+          // return new Stack(
+          //   fit: StackFit.expand,
+          //   children: [
+          //     Positioned(
+          //       height: 24.0,
+          //       left: 0.0,
+          //       right: 0.0,
+          //       child: Container(
+          //         color: connected ? Color(0xFF00EE44) : Color(0xFFEE4400),
+          //         child: Center(
+          //           child: Text("${connected ? 'ONLINE' : 'OFFLINE'}"),
+          //         ),
+          //       ),
+          //     ),
+          //     // Center(
+          //     //   child: new Text(
+          //     //     'Yay!',
+          //     //   ),
+          //     // ),
+          //   ],
+          // );
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text(
+              'There are no bottons to push :)',
             ),
-          ),
-          // خللفية شفافة سوداء
-
-          if (endGameAlertShow == true ||
-              quitGameAlertShow == true ||
-              fristquestionAlertShow == true ||
-              usingTheCrowdContainerShow == true ||
-              callFriendContainerShow == true)
-            const BlackScreenWithOpacity(),
-
-          //Using the crowd  وسيلة مساعده الاستعانه بالجمهور
-          if (usingTheCrowdContainerShow == true) PlayUsingTheCrowdAnimation(),
-
-          // call a friend وسيلة مساعده الاتصال بصديق
-          if (callFriendContainerShow == true) const CallFriend(),
-
-          //Quit the game الانسحاب
-          if (quitGameAlertShow == true) const QuitTheGame(),
-
-          // game over  انتهت اللعبه
-          if (endGameAlertShow == true) const EndGameAlert(),
-          //اظهار رساله ان لا يمكن استخدام وسائل المساعدة فى السوال الاول
-          if (fristquestionAlertShow == true) const FristquestionAlert(),
-        ],
+            new Text(
+              'Just turn off your internet.',
+            ),
+          ],
+        ),
       ),
-
-      //  OfflineBuilder(
-      //   connectivityBuilder: (
-      //     BuildContext context,
-      //     ConnectivityResult connectivity,
-      //     Widget child,
-      //   ) {
-      //     final bool connected = connectivity != ConnectivityResult.none;
-
-      //     if (connected) {
-
-      //     } else {
-      //       return CircularProgressIndicator(); // buildNoInternetWidget();
-      //     }
-      //   },
-      //   child: Container(
-      //       color: MyColors.black.withOpacity(20),
-      //       child: CircularProgressIndicator()),
-      // ),
     );
+
+    // return OfflineBuilder(
+    //   connectivityBuilder: (
+    //     BuildContext context,
+    //     ConnectivityResult connectivity,
+    //     Widget child,
+    //   ) {
+    //     final bool connected = connectivity != ConnectivityResult.none;
+
+    //     if (connected) {
+    //       return Scaffold(
+    //         body: Stack(
+    //           children: [
+    //             ContainerWithBackgroundImage(
+    //               child: Row(
+    //                 children: [
+    //                   // Score Center Container
+    //                   ScoreCenterContainer(allScore: allScore),
+
+    //                   Padding(
+    //                     padding:
+    //                         EdgeInsets.only(right: 34.w, left: 40.w, top: 28.h),
+    //                     child: Column(
+    //                       children: [
+    //                         //Help Center منطقه وسائل المساعدة
+    //                         HelpCenterContainer(
+    //                           allScore: allScore,
+    //                           function: changeValue,
+    //                           // stopWatchTimer: stopWatchTimer
+    //                         ),
+    //                         92.verticalSpace,
+    //                         //Question Centerمنطقه الاسائله واجابتها
+    //                         QuestionCenterContainer(
+    //                           allScore: allScore,
+    //                           function: changeValue,
+    //                           // stopWatchTimer: stopWatchTimer
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   )
+    //                 ],
+    //               ),
+    //             ),
+    //             // خللفية شفافة سوداء
+
+    //             if (endGameAlertShow == true ||
+    //                 quitGameAlertShow == true ||
+    //                 fristquestionAlertShow == true ||
+    //                 usingTheCrowdContainerShow == true ||
+    //                 callFriendContainerShow == true)
+    //               const BlackScreenWithOpacity(),
+
+    //             //Using the crowd  وسيلة مساعده الاستعانه بالجمهور
+    //             if (usingTheCrowdContainerShow == true)
+    //               PlayUsingTheCrowdAnimation(),
+
+    //             // call a friend وسيلة مساعده الاتصال بصديق
+    //             if (callFriendContainerShow == true) const CallFriend(),
+
+    //             //Quit the game الانسحاب
+    //             if (quitGameAlertShow == true) const QuitTheGame(),
+
+    //             // game over  انتهت اللعبه
+    //             if (endGameAlertShow == true) const EndGameAlert(),
+    //             //اظهار رساله ان لا يمكن استخدام وسائل المساعدة فى السوال الاول
+    //             if (fristquestionAlertShow == true) const FristquestionAlert(),
+    //           ],
+    //         ),
+    //       );
+    //     } else {
+    //       return CircularProgressIndicator(); // buildNoInternetWidget();
+    //     }
+    //   },
+    //   child: Container(
+    //       color: MyColors.black.withOpacity(20),
+    //       child: CircularProgressIndicator()),
+    // );
   }
 }
