@@ -2,71 +2,111 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/presentation/widgets/NormalText.dart';
 import 'package:who_win_million/presentation/widgets/containerWithLinearGradient.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
 
-class UsingTheCrowd extends StatelessWidget {
+import '../../business_logic/provider/variablesProvider.dart';
+
+class UsingTheCrowd extends StatefulWidget {
   const UsingTheCrowd({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // double hightcorct = 101;
-    // double hightwo = 22;
-    // double hightthree = 23;
-    // double hightfour = 24;
-    // void getrandomNumber() {
-    //   var rng = Random();
-    //   int courectanser = rng.nextInt(5) + 55;
-    //   var two = rng.nextInt(100 - courectanser) + 1;
-    //   var three = rng.nextInt(100 - (courectanser + two)) + 1;
-    //   var four = 100 - (courectanser + two + three);
+  State<UsingTheCrowd> createState() => _UsingTheCrowdState();
+}
 
-    //   setState(() {
-    //     hightcorct = courectanser * 1.7;
-    //     hightwo = two * 1.7;
-    //     hightthree = three * 1.7;
-    //     hightfour = four * 1.7;
-    //   });
-    // }
+class _UsingTheCrowdState extends State<UsingTheCrowd> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getrandomNumber();
+  }
+
+  double hightCorrectAnswerRang = 5;
+  double hightfristAnswerRang = 5;
+  double hightSecondAnswerRang = 5;
+  double hightThirdAnswerRang = 5;
+  double hightFourthAnswerRang = 5;
+
+  void getrandomNumber() {
+    var rng = Random();
+    int correctAnswerRang = rng.nextInt(5) + 55;
+    var fristAnswerRang = 5;
+    var secondAnswerRang = rng.nextInt(100 - correctAnswerRang) + 1;
+    var thirdAnswerRang =
+        rng.nextInt(100 - (correctAnswerRang + secondAnswerRang)) + 1;
+    var fourthAnswerRang =
+        100 - (correctAnswerRang + secondAnswerRang + thirdAnswerRang);
+    setState(() {
+      hightCorrectAnswerRang = correctAnswerRang * 1.7;
+      hightfristAnswerRang = fristAnswerRang * 1.7;
+      hightSecondAnswerRang = secondAnswerRang * 1.7;
+      hightThirdAnswerRang = thirdAnswerRang * 1.7;
+      hightFourthAnswerRang = fourthAnswerRang * 1.7;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var question =
+        Provider.of<VariablesProvider>(context, listen: true).question;
+    var correctAnswer =
+        Provider.of<VariablesProvider>(context, listen: true).correctAnswer;
+    double gethight(int answerNumber) {
+      var correctAnswerNumber = int.parse('$correctAnswer');
+      if (correctAnswerNumber == answerNumber) {
+        return hightCorrectAnswerRang;
+      } else if (answerNumber == 1) {
+        return hightfristAnswerRang;
+      } else if (answerNumber == 2) {
+        return hightSecondAnswerRang;
+      } else if (answerNumber == 3) {
+        return hightThirdAnswerRang;
+      } else {
+        return hightFourthAnswerRang;
+      }
+    }
+
     return Container(
       alignment: Alignment.center,
       child: ContainerWithLinearGradient(
         width: 340,
         height: 234,
-        border: 1,
+        border: 3,
         borderRadius: 13,
         child: Column(children: [
-          20.verticalSpace,
+          35.verticalSpace,
           Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                height: 45.h,
+                height: gethight(1),
                 width: 45.w,
                 color: MyColors.darkGreen,
               ),
               20.horizontalSpace,
               Container(
-                height: 22.h,
+                height: gethight(2),
                 width: 45.w,
                 color: MyColors.darkGreen,
               ),
               20.horizontalSpace,
               Container(
-                height: 35.h,
+                height: gethight(3),
                 width: 45.w,
                 color: MyColors.darkGreen,
               ),
               20.horizontalSpace,
               Container(
-                height: 101.h,
+                height: gethight(4),
                 width: 45.w,
                 color: MyColors.darkGreen,
               ),
@@ -115,7 +155,8 @@ class UsingTheCrowd extends StatelessWidget {
           20.verticalSpace,
           LinearButton(
             ontap: () {
-              // getrandomNumber();
+              Provider.of<VariablesProvider>(context, listen: false)
+                  .set_UsingTheCrowdContainerShow(false);
             },
             width: 103,
             height: 40,

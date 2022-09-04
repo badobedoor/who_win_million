@@ -5,6 +5,12 @@ abstract class PlayerState {}
 
 class PlayerInitial extends PlayerState {}
 
+class SS extends PlayerState {
+  SS({required this.show});
+
+  final bool show;
+}
+
 //   Player Score  State
 class PlayerScoreLoaded extends PlayerState {
   PlayerScore playerScoreData;

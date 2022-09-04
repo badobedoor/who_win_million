@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:who_win_million/app_router.dart';
 import 'package:who_win_million/constants/strings.dart';
+
+import 'business_logic/provider/variablesProvider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +16,11 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
-  ]).then((value) => runApp(WinMillionApp(appRouter: AppRouter())));
+  ]).then((value) => runApp(MultiProvider(providers: [
+        ChangeNotifierProvider<VariablesProvider>(
+          create: (ctx) => VariablesProvider(),
+        ),
+      ], child: WinMillionApp(appRouter: AppRouter()))));
   runApp(WinMillionApp(appRouter: AppRouter()));
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // runApp(WinMillionApp(appRouter: AppRouter()));

@@ -38,7 +38,10 @@ dependencies:
   google_sign_in: ^5.4.0
   intl: ^0.17.0
   just_audio: ^0.9.28
+  provider: ^6.0.3
+  rive: ^0.9.1
   shared_preferences: ^2.0.15
+  stop_watch_timer: ^1.5.0
   toast: ^0.3.0
 
 dev_dependencies:

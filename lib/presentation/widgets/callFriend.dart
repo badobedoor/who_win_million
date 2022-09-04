@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/presentation/widgets/NormalText.dart';
 import 'package:who_win_million/presentation/widgets/containerWithLinearGradient.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
+
+import '../../business_logic/help/soundEffects.dart';
+import '../../business_logic/provider/variablesProvider.dart';
 
 class CallFriend extends StatelessWidget {
   const CallFriend({
@@ -13,6 +17,8 @@ class CallFriend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var correctAnswer =
+        Provider.of<VariablesProvider>(context, listen: true).correctAnswer;
     return Container(
       alignment: Alignment.center,
       child: ContainerWithLinearGradient(
@@ -43,7 +49,7 @@ class CallFriend extends StatelessWidget {
           SizedBox(
             width: 220,
             child: NormalText(
-              text: " هي الإجابة رقم 2",
+              text: " هي الإجابة رقم $correctAnswer",
               color: MyColors.white,
               fontSize: 16.sp,
               fontWeight: FontWeight.w900,
@@ -51,7 +57,12 @@ class CallFriend extends StatelessWidget {
           ),
           20.verticalSpace,
           LinearButton(
-            ontap: () {},
+            ontap: () {
+              if (SoundEffects.phoneFriendClockAudio.playing)
+                SoundEffects.phoneFriendClockAudioDispose();
+              Provider.of<VariablesProvider>(context, listen: false)
+                  .set_CallFriendContainerShow(false);
+            },
             width: 103,
             height: 40,
             borderRadius: 10,

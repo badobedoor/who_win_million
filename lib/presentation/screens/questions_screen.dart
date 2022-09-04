@@ -1,9 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
 
 import 'package:flutter/material.dart';
+
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:who_win_million/constants/my_colors.dart';
 
 import 'package:who_win_million/presentation/widgets/container_with_background_image.dart';
 import 'package:who_win_million/presentation/widgets/helpCenterContainer.dart';
@@ -12,9 +16,19 @@ import 'package:who_win_million/presentation/widgets/questionCenterContainer.dar
 
 import 'package:who_win_million/presentation/widgets/scoreCenterContainer.dart';
 
+import '../../business_logic/cubit/player_cubit.dart';
+import '../../business_logic/cubit/questions_cubit.dart';
+import '../../business_logic/functions.dart/question_screen_functions.dart';
 import '../../business_logic/help/soundEffects.dart';
+import '../../business_logic/help/staticValues.dart';
+import '../../business_logic/provider/variablesProvider.dart';
 import '../widgets/blackScreenWithOpacity.dart';
+import '../widgets/callFriend.dart';
 import '../widgets/endGameAlert.dart';
+import '../widgets/fristquestionAlert.dart';
+import '../widgets/playUsingTheCrowdAnimation.dart';
+import '../widgets/quitTheGame.dart';
+import '../widgets/usingTheCrowd.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({Key? key}) : super(key: key);
@@ -29,20 +43,71 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   List<List<Object>> allScore = [];
-  bool endGameAlertShow = false;
-  String gameEndScoreText = '0';
+  // bool endGameAlertShow = false;
+  // String gameEndScoreText = '0';
+  // int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 20;
+  // set endTimeChange(int newTime) => setState(() => newTime = endTime);
   set allScoreDataChange(List<List<Object>> value) =>
       setState(() => allScore = value);
-  set gameEndAlertShow(bool gameEndValue) =>
-      setState(() => endGameAlertShow = gameEndValue);
-  set gameEndScoreTextValueShange(String gameEndScoreTextValue) =>
-      setState(() => gameEndScoreText = gameEndScoreTextValue);
+  // set gameEndAlertShow(bool gameEndValue) =>
+  //     setState(() => endGameAlertShow = gameEndValue);
+  // set gameEndScoreTextValueShange(String gameEndScoreTextValue) =>
+  //     setState(() => gameEndScoreText = gameEndScoreTextValue);
+  void changeValue() {
+    setState(() {
+      // endGameAlertShow = true;
+    });
+  }
+
+  // StopWatchTimer stopWatchTimer = StopWatchTimer();
+
   @override
   void initState() {
     super.initState();
-    SoundEffects.setAndPlaystartgameAudio()
-        .whenComplete(() => SoundEffects.setAndPlayQuestionsEseyAudio());
+    bool isSoundOn =
+        Provider.of<VariablesProvider>(context, listen: false).isSoundOn;
+
+    if (isSoundOn) {
+      SoundEffects.setAndPlaystartgameAudio()
+          .whenComplete(() => SoundEffects.setAndPlayQuestionsEseyAudio());
+    }
+
     setAllScore();
+    // stopWatchTimer = StopWatchTimer(
+    //   mode: StopWatchMode.countDown,
+    //   presetMillisecond:
+    //       StopWatchTimer.getMilliSecFromSecond(60), // millisecond => minute.
+    // );
+    // stopWatchTimer.onExecute.add(StopWatchExecute.start);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    var endGameAlertShow =
+        Provider.of<VariablesProvider>(context, listen: false).endGameAlertShow;
+    var nextQuestion =
+        Provider.of<VariablesProvider>(context, listen: false).nextQuestion;
+    if (endGameAlertShow == true) {
+      // stopWatchTimer.dispose();
+      // stopWatchTimer = StopWatchTimer(
+      //   mode: StopWatchMode.countDown,
+      //   presetMillisecond:
+      //       StopWatchTimer.getMilliSecFromSecond(60), // millisecond => minute.
+      // );
+      // stopWatchTimer.onExecute.add(StopWatchExecute.start);
+      // Provider.of<VariablesProvider>(context, listen: false)
+      // .set_NextQuestion(false);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // var stopWatchTimer =
+    //     Provider.of<VariablesProvider>(context, listen: false).stopWatchTimer;
+    // stopWatchTimer.dispose();
   }
 
   void setAllScore() {
@@ -70,6 +135,43 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // StopWatchTimer stopWatchTimer = StopWatchTimer(
+    //     mode: StopWatchMode.countDown,
+    //     presetMillisecond: StopWatchTimer.getMilliSecFromSecond(40),
+    //     onEnded: () {
+    //       timeEndGameOver(context);
+    //     });
+    var stopWatchTimer =
+        Provider.of<VariablesProvider>(context, listen: true).stopWatchTimer;
+    var endGameAlertShow =
+        Provider.of<VariablesProvider>(context, listen: true).endGameAlertShow;
+    var quitGameAlertShow =
+        Provider.of<VariablesProvider>(context, listen: true).quitGameAlertShow;
+    var callFriendContainerShow =
+        Provider.of<VariablesProvider>(context, listen: true)
+            .callFriendContainerShow;
+    var fristquestionAlertShow =
+        Provider.of<VariablesProvider>(context, listen: true)
+            .fristquestionAlertShow;
+    var usingTheCrowdContainerShow =
+        Provider.of<VariablesProvider>(context, listen: true)
+            .usingTheCrowdContainerShow;
+    // var allScore = allScoreloca
+    //     ? Provider.of<VariablesProvider>(context, listen: true).allScore
+    //     : allScorelocal;
+    // Widget buildNoInternetWidget() {
+    //   return Container(
+    //     // 640×360 px
+    //     height: 360.h,
+    //     width: 640.w,
+    //     decoration: const BoxDecoration(
+    //       image: DecorationImage(
+    //           image: AssetImage("assets/images/noConnection.png"),
+    //           fit: BoxFit.fill),
+    //     ),
+    //   );
+    // }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -84,10 +186,18 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   child: Column(
                     children: [
                       //Help Center منطقه وسائل المساعدة
-                      const HelpCenterContainer(),
+                      HelpCenterContainer(
+                        allScore: allScore,
+                        function: changeValue,
+                        // stopWatchTimer: stopWatchTimer
+                      ),
                       92.verticalSpace,
                       //Question Centerمنطقه الاسائله واجابتها
-                      QuestionCenterContainer(allScore: allScore),
+                      QuestionCenterContainer(
+                        allScore: allScore,
+                        function: changeValue,
+                        // stopWatchTimer: stopWatchTimer
+                      ),
                     ],
                   ),
                 )
@@ -95,21 +205,48 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ),
           ),
           // خللفية شفافة سوداء
-          if (endGameAlertShow) BlackScreenWithOpacity(),
+
+          if (endGameAlertShow == true ||
+              quitGameAlertShow == true ||
+              fristquestionAlertShow == true ||
+              usingTheCrowdContainerShow == true ||
+              callFriendContainerShow == true)
+            const BlackScreenWithOpacity(),
 
           //Using the crowd  وسيلة مساعده الاستعانه بالجمهور
-          //UsingTheCrowd(),
+          if (usingTheCrowdContainerShow == true) PlayUsingTheCrowdAnimation(),
 
           // call a friend وسيلة مساعده الاتصال بصديق
-          // CallFriend()
+          if (callFriendContainerShow == true) const CallFriend(),
 
           //Quit the game الانسحاب
-          //QuitTheGame(),
+          if (quitGameAlertShow == true) const QuitTheGame(),
 
           // game over  انتهت اللعبه
-          if (endGameAlertShow) EndGameAlert(scoreText: gameEndScoreText),
+          if (endGameAlertShow == true) const EndGameAlert(),
+          //اظهار رساله ان لا يمكن استخدام وسائل المساعدة فى السوال الاول
+          if (fristquestionAlertShow == true) const FristquestionAlert(),
         ],
       ),
+
+      //  OfflineBuilder(
+      //   connectivityBuilder: (
+      //     BuildContext context,
+      //     ConnectivityResult connectivity,
+      //     Widget child,
+      //   ) {
+      //     final bool connected = connectivity != ConnectivityResult.none;
+
+      //     if (connected) {
+
+      //     } else {
+      //       return CircularProgressIndicator(); // buildNoInternetWidget();
+      //     }
+      //   },
+      //   child: Container(
+      //       color: MyColors.black.withOpacity(20),
+      //       child: CircularProgressIndicator()),
+      // ),
     );
   }
 }

@@ -43,7 +43,23 @@ class AppRouter {
   Route? genarateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splashScreen:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: registrationCubit,
+              ),
+              BlocProvider.value(
+                value: leaderboardCubit,
+              ),
+              BlocProvider.value(
+                value: questionsCubit,
+              )
+            ],
+            child: SplashScreen(),
+          ),
+        );
+
       case homeScreen:
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
@@ -80,8 +96,15 @@ class AppRouter {
 
       case questionsScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: questionsCubit,
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: questionsCubit,
+              ),
+              BlocProvider.value(
+                value: playerCubit,
+              ),
+            ],
             child: const QuestionsScreen(),
           ),
         );

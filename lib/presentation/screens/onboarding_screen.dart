@@ -13,6 +13,7 @@ class OnboardigScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ContainerWithLogoBackgroundImage(
+      pageName: '',
       child: Padding(
         padding: EdgeInsets.only(right: 47.w, top: 135.h),
         child: Container(

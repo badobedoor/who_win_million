@@ -10,10 +10,12 @@ part 'player_state.dart';
 
 class PlayerCubit extends Cubit<PlayerState> {
   LeaderbordRepository leaderbordRepository;
-
   PlayerCubit(
     this.leaderbordRepository,
   ) : super(PlayerInitial());
+
+  //data
+  bool show = false;
 
   Future getPlayerScoreByID({required int id}) async {
     emit(PlayerScoreLoding());

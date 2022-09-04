@@ -1,10 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 import 'package:who_win_million/business_logic/help/soundEffects.dart';
 import '../../business_logic/cubit/questions_cubit.dart';
@@ -14,11 +18,12 @@ import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
 import '../../business_logic/help/sharedPreferences.dart';
+import '../../business_logic/provider/variablesProvider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final user;
+  // final user;
 
-  const HomeScreen({Key? key, this.user}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -29,10 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<QuestionsCubit>(context).getRandomQuestion();
-    if (NewSharedPreferences.isSoundOn == true) {
-      // SoundEffects().setAndPlayOpeningAudio();
+
+    bool isSoundOn =
+        Provider.of<VariablesProvider>(context, listen: false).isSoundOn;
+    if (isSoundOn == true) {
+      SoundEffects.setAndPlayOpeningAudio();
     }
-    SoundEffects.setAndPlayOpeningAudio();
   }
 
   @override
@@ -46,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ContainerWithLogoBackgroundImage(
+      pageName: 'homeScreen',
       child: Padding(
         padding: EdgeInsets.only(right: 47.w, top: 108.h),
         child: Container(
@@ -68,9 +76,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ontap: () async {
+                    Provider.of<VariablesProvider>(context, listen: false)
+                        .reset_HelpContaner();
                     if (SoundEffects.openingAudio.playing)
                       SoundEffects.openingAudio.stop();
 
+                    Provider.of<VariablesProvider>(context, listen: false)
+                        .sets_StopWatchTimer();
+                    var stopWatchTimer =
+                        Provider.of<VariablesProvider>(context, listen: false)
+                            .stopWatchTimer;
+                    stopWatchTimer.onExecute.add(StopWatchExecute.start);
                     Navigator.pushNamed(context, questionsScreen);
                   }),
               20.verticalSpace, // SizedBox(height: 20.h),

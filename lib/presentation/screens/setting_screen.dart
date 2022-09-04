@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
@@ -11,6 +12,7 @@ import 'package:who_win_million/presentation/widgets/linear_button.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
 
 import '../../business_logic/help/sharedPreferences.dart';
+import '../../business_logic/provider/variablesProvider.dart';
 import '../../data/models/player.dart';
 import '../widgets/loginSettingsContainer.dart';
 
@@ -27,16 +29,19 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   bool isAccountSettingShow = false;
   bool isloginSettingShow = false;
-  bool isSoundOn = true; //هنا الاصول اجبيب البينات من الداتا المسجله على الجهاز
+
   var id = PlayerAccount.playerId;
   var playerEmail = PlayerAccount.playerEmail;
   set settingShow(bool value) => setState(() => isAccountSettingShow = value);
 
   @override
   Widget build(BuildContext context) {
+    bool isSoundOn =
+        Provider.of<VariablesProvider>(context, listen: true).isSoundOn;
     return Scaffold(
       body: Stack(children: [
         ContainerWithLogoBackgroundImage(
+          pageName: '',
           child: Padding(
             padding: EdgeInsets.only(right: 47.w, top: 85.h),
             child: Container(
@@ -82,7 +87,9 @@ class _SettingScreenState extends State<SettingScreen> {
                       setState(() {
                         isSoundOn = !isSoundOn;
                       });
-                      await NewSharedPreferences().setIsSoundOn(isSoundOn);
+                      await Provider.of<VariablesProvider>(context,
+                              listen: false)
+                          .setIsSoundOn(isSoundOn);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
