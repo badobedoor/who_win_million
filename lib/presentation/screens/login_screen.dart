@@ -2,16 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:toast/toast.dart';
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/constants/strings.dart';
 import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
-import 'package:toast/toast.dart';
 
 import '../../business_logic/cubit/registration_cubit.dart';
 import '../../business_logic/functions.dart/login_screen_functions.dart';
 import '../../business_logic/help/sharedPreferences.dart';
-import '../../data/web_services/registration_web_services.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -72,7 +70,7 @@ class LogInScreen extends StatelessWidget {
               SizedBox(height: 28.h),
               googleButton(context),
               SizedBox(height: 20.h),
-              facebookButton(),
+              facebookButton(context),
               SizedBox(height: 58.h),
               skipButton(context),
             ],
@@ -103,22 +101,25 @@ class LogInScreen extends StatelessWidget {
   }
 
   //facebook Button UI
-  Container facebookButton() {
-    return Container(
-      width: 180.w,
-      height: 35.h,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(6.r),
-      ),
-      child: Text(
-        'Facebook',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16.sp,
-          color: MyColors.white,
-          fontWeight: FontWeight.bold,
+  InkWell facebookButton(BuildContext context) {
+    return InkWell(
+      onTap: () => LoginScreenFunctions.faceBookSigIn(context),
+      child: Container(
+        width: 180.w,
+        height: 35.h,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(6.r),
+        ),
+        child: Text(
+          'Facebook',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16.sp,
+            color: MyColors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

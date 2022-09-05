@@ -45,6 +45,7 @@ class SplashScreenState extends State {
     await Future.delayed(const Duration(seconds: 3));
     if (isOnboardingScreenShowed == true && isLoginScreenShowed == true) {
       return const HomeScreen();
+      // return const LogInScreen();
       // Navigator.pushNamed(context, homeScreen);
     } else if (isOnboardingScreenShowed == true &&
         isLoginScreenShowed == false) {

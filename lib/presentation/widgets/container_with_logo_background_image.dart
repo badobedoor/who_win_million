@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:who_win_million/presentation/widgets/playLogoAnimation.dart';
+import 'playLogoAnimation.dart';
 
 class ContainerWithLogoBackgroundImage extends StatelessWidget {
   final Widget child;

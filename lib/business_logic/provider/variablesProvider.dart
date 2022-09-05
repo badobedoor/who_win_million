@@ -1,16 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:who_win_million/business_logic/cubit/questions_cubit.dart';
 
 import '../../data/models/Questions.dart';
-import '../../presentation/widgets/endGameAlert.dart';
-import '../help/soundEffects.dart';
 
 bool endGameAlertShow = false;
 

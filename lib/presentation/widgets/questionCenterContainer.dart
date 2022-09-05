@@ -6,11 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:toast/toast.dart';
-
 import 'package:who_win_million/business_logic/cubit/questions_cubit.dart';
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/data/models/Questions.dart';
-import 'package:who_win_million/presentation/widgets/NormalText.dart';
 import 'package:who_win_million/presentation/widgets/endGameAlert.dart';
 import 'package:who_win_million/presentation/widgets/showLoadingIndicator.dart';
 

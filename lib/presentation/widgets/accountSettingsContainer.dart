@@ -3,12 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toast/toast.dart';
 import 'package:who_win_million/business_logic/cubit/registration_cubit.dart';
 import 'package:who_win_million/constants/my_colors.dart';
-import 'package:who_win_million/presentation/screens/questions_screen.dart';
 import 'package:who_win_million/presentation/widgets/NormalText.dart';
 import 'package:who_win_million/presentation/widgets/containerWithLinearGradient.dart';
 import 'package:who_win_million/presentation/widgets/linear_button.dart';

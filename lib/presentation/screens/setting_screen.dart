@@ -3,17 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:who_win_million/constants/my_colors.dart';
-import 'package:who_win_million/constants/strings.dart';
-import 'package:who_win_million/presentation/screens/questions_screen.dart';
-import 'package:who_win_million/presentation/widgets/accountSettingsContainer.dart';
-import 'package:who_win_million/presentation/widgets/blackScreenWithOpacity.dart';
-import 'package:who_win_million/presentation/widgets/linear_button.dart';
-import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
-
-import '../../business_logic/help/sharedPreferences.dart';
 import '../../business_logic/provider/variablesProvider.dart';
+import '../../constants/my_colors.dart';
 import '../../data/models/player.dart';
+import '../widgets/accountSettingsContainer.dart';
+import '../widgets/blackScreenWithOpacity.dart';
+import '../widgets/container_with_logo_background_image.dart';
+import '../widgets/linear_button.dart';
 import '../widgets/loginSettingsContainer.dart';
 
 class SettingScreen extends StatefulWidget {

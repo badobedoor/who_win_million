@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/presentation/widgets/NormalText.dart';
 

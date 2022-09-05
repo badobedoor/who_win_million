@@ -4,7 +4,6 @@ import 'package:meta/meta.dart';
 
 import '../../data/models/getPlayerScore.dart';
 import '../../data/repository/leaderbord_repository.dart';
-import '../../data/repository/registration_repository.dart';
 
 part 'player_state.dart';
 

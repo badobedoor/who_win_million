@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:who_win_million/data/models/getLeaderboard.dart';
 
 import '../../constants/strings.dart';
 

@@ -4,11 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:who_win_million/business_logic/cubit/leaderbord_cubit.dart';
 import 'package:who_win_million/business_logic/cubit/player_cubit.dart';
-
-import 'package:who_win_million/business_logic/cubit/registration_cubit.dart';
-
 import 'package:who_win_million/constants/my_colors.dart';
-
 import 'package:who_win_million/presentation/widgets/container_with_background_image.dart';
 import 'package:who_win_million/presentation/widgets/leaderBordListViewItem.dart';
 

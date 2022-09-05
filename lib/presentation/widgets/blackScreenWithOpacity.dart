@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:who_win_million/constants/my_colors.dart';
+
+import '../../constants/my_colors.dart';
 
 class BlackScreenWithOpacity extends StatelessWidget {
   const BlackScreenWithOpacity({

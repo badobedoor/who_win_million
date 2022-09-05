@@ -1,8 +1,7 @@
 /// Demonstrates playing a one-shot animation on demand
-
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rive/rive.dart';
 
 class PlayLogoAnimation extends StatefulWidget {
   const PlayLogoAnimation({Key? key}) : super(key: key);

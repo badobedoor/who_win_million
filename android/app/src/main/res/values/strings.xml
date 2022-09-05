@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="facebook_app_id">819958172331774</string>
+  <string name="facebook_client_token">b5507e85ad0b000c12c000168c199f9b</string>
+  <string name="app_name">من سيربح المليون النسخه الديني</string>
+  <string name="fb_login_protocol_scheme">fb819958172331774</string>
+</resources>

@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'package:who_win_million/constants/my_colors.dart';
-import 'package:who_win_million/presentation/widgets/NormalText.dart';
-import 'package:who_win_million/presentation/widgets/containerWithLinearGradient.dart';
-import 'package:who_win_million/presentation/widgets/linear_button.dart';
-
 import '../../business_logic/provider/variablesProvider.dart';
+import '../../constants/my_colors.dart';
+import 'NormalText.dart';
+import 'containerWithLinearGradient.dart';
+import 'linear_button.dart';
 
 class UsingTheCrowd extends StatefulWidget {
   const UsingTheCrowd({

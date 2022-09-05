@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
-import 'package:provider/provider.dart';
 
 import '../../data/models/Questions.dart';
 import '../../data/repository/questions_repository.dart';

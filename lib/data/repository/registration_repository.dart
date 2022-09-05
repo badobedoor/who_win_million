@@ -1,11 +1,7 @@
-import 'package:who_win_million/business_logic/cubit/registration_cubit.dart';
-
+import '../models/createNewPlayerWithAccount.dart';
+import '../models/getPlayerNameByID.dart';
 import '../models/loginPlayerAccount_by_ID.dart';
 import '../models/newPlayer.dart';
-import '../models/createNewPlayerWithAccount.dart';
-
-import '../models/getPlayerNameByID.dart';
-
 import '../models/updatePlayerName.dart';
 import '../web_services/registration_web_services.dart';
 

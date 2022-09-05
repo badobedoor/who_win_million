@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../business_logic/cubit/leaderbord_cubit.dart';
 import '../../data/models/getLeaderboard.dart';
-import '../../data/models/player.dart';
 import 'leaderBordListViewItem.dart';
 
 class LeaderBoardUIData extends StatelessWidget {

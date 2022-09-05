@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../../presentation/screens/questions_screen.dart';
-import '../cubit/player_cubit.dart';
 import '../cubit/questions_cubit.dart';
 import '../help/soundEffects.dart';
 import '../provider/variablesProvider.dart';

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:who_win_million/business_logic/cubit/leaderbord_cubit.dart';
-import 'package:who_win_million/business_logic/cubit/player_cubit.dart';
-import 'package:who_win_million/business_logic/cubit/questions_cubit.dart';
 
-import 'package:who_win_million/business_logic/cubit/registration_cubit.dart';
-import 'package:who_win_million/data/repository/leaderbord_repository.dart';
-import 'package:who_win_million/data/repository/questions_repository.dart';
-import 'package:who_win_million/data/repository/registration_repository.dart';
-import 'package:who_win_million/data/web_services/questions_web_Services.dart';
-import 'package:who_win_million/presentation/screens/splashScreen.dart';
+import 'business_logic/cubit/leaderbord_cubit.dart';
+import 'business_logic/cubit/player_cubit.dart';
+import 'business_logic/cubit/questions_cubit.dart';
+import 'business_logic/cubit/registration_cubit.dart';
 import 'constants/strings.dart';
+import 'data/repository/leaderbord_repository.dart';
+import 'data/repository/questions_repository.dart';
+import 'data/repository/registration_repository.dart';
 import 'data/web_services/leaderboard_web_services.dart';
+import 'data/web_services/questions_web_Services.dart';
 import 'data/web_services/registration_web_services.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/leaderboard_screen.dart';
@@ -19,6 +18,7 @@ import 'presentation/screens/login_screen.dart';
 import 'presentation/screens/onboarding_screen.dart';
 import 'presentation/screens/questions_screen.dart';
 import 'presentation/screens/setting_screen.dart';
+import 'presentation/screens/splashScreen.dart';
 
 class AppRouter {
   late RegistrationRepository registrationRepository;

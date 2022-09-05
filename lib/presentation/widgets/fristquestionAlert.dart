@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:who_win_million/presentation/widgets/NormalText.dart';
 
 import '../../business_logic/provider/variablesProvider.dart';
 import '../../constants/my_colors.dart';
+import 'NormalText.dart';
 import 'containerWithLinearGradient.dart';
 import 'linear_button.dart';
 

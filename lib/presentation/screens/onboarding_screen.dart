@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:who_win_million/constants/my_colors.dart';
+import '../../constants/my_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:who_win_million/constants/strings.dart';
-import 'package:who_win_million/presentation/widgets/container_with_logo_background_image.dart';
+import '../../constants/strings.dart';
+import '../widgets/container_with_logo_background_image.dart';
 
 import '../../business_logic/help/sharedPreferences.dart';
 

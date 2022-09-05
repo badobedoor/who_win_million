@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/models/newPlayer.dart';
 import '../../data/repository/registration_repository.dart';
 import '../help/sharedPreferences.dart';
 
