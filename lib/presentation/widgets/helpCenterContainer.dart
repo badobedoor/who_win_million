@@ -2,25 +2,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-
 import 'package:who_win_million/business_logic/help/soundEffects.dart';
 import 'package:who_win_million/constants/my_colors.dart';
 import 'package:who_win_million/data/models/Questions.dart';
-import 'package:who_win_million/presentation/screens/questions_screen.dart';
 import 'package:who_win_million/presentation/widgets/containerWithLinearGradient.dart';
 
-import '../../business_logic/cubit/player_cubit.dart';
-import '../../business_logic/cubit/questions_cubit.dart';
 import '../../business_logic/functions.dart/question_screen_functions.dart';
-import '../../business_logic/help/staticValues.dart';
 import '../../business_logic/provider/variablesProvider.dart';
-import 'endGameAlert.dart';
 
 class HelpCenterContainer extends StatefulWidget {
   // final StopWatchTimer stopWatchTimer;
